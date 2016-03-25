@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>square gradient</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>override func drawRect(rect: CGRect) {
+    guard let currentContext = UIGraphicsGetCurrentContext() else {
+        return
+    }
+
+    let shadowSize: CGFloat = &lt;#size#&gt;
+    let fullPath = UIBezierPath(rect: bounds).CGPath
+
+    &lt;#Fill Color#&gt;.setFill()
+    CGContextAddPath(currentContext, fullPath)
+    CGContextFillPath(currentContext)
+
+    // Path used for dropping shadow.
+    let shadowPath = CGPathCreateMutable()
+    CGPathAddRect(shadowPath, nil, CGRectInset(bounds, -shadowSize, -shadowSize))
+
+    // Subtract the fullPath from the shadowPath
+    CGPathAddPath(shadowPath, nil, fullPath)
+    CGPathCloseSubpath(shadowPath)
+
+    // Clip by the fullPath
+    CGContextAddPath(currentContext, fullPath)
+    CGContextClip(currentContext)
+
+    let shadowColor = &lt;#Shadow Color#&gt;
+    CGContextSaveGState(currentContext)
+    CGContextSetShadowWithColor(currentContext, CGSizeZero, shadowSize, shadowColor.CGColor)
+
+    shadowColor.setFill()
+
+    CGContextSaveGState(currentContext)
+    CGContextAddPath(currentContext, shadowPath)
+    CGContextEOFillPath(currentContext)
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>8D04212D-E68C-48A8-B1ED-1AA0983E98CC</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Square Gradient for view via CG in drawRect:</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
